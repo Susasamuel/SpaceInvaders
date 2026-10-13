@@ -8,6 +8,11 @@ namespace SpaceINvaders
     {
         public Enemigo(int xi, int yi, ConsoleColor color) : base(xi, yi, color)
         {
+            Forma = new string[] {
+                " \\ / ",
+                "(o o)", 
+                " \\_/ "
+        };
         }
     }
 }

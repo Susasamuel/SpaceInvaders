@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\susas\\source\\repos\\SpaceINvaders\\SpaceINvaders\\SpaceINvaders.csproj": {}
+    "C:\\Users\\santi\\source\\repos\\zi\\SpaceINvaders\\SpaceINvaders.csproj": {}
   },
   "projects": {
-    "C:\\Users\\susas\\source\\repos\\SpaceINvaders\\SpaceINvaders\\SpaceINvaders.csproj": {
+    "C:\\Users\\santi\\source\\repos\\zi\\SpaceINvaders\\SpaceINvaders.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\susas\\source\\repos\\SpaceINvaders\\SpaceINvaders\\SpaceINvaders.csproj",
+        "projectUniqueName": "C:\\Users\\santi\\source\\repos\\zi\\SpaceINvaders\\SpaceINvaders.csproj",
         "projectName": "SpaceINvaders",
-        "projectPath": "C:\\Users\\susas\\source\\repos\\SpaceINvaders\\SpaceINvaders\\SpaceINvaders.csproj",
-        "packagesPath": "C:\\Users\\susas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\susas\\source\\repos\\SpaceINvaders\\SpaceINvaders\\obj\\",
+        "projectPath": "C:\\Users\\santi\\source\\repos\\zi\\SpaceINvaders\\SpaceINvaders.csproj",
+        "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\santi\\source\\repos\\zi\\SpaceINvaders\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\susas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -51,6 +51,12 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
+          "dependencies": {
+            "System.IO.Ports": {
+              "target": "Package",
+              "version": "[10.0.12, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpaceINvaders
 {
-    public class Esp
+    public class ESP
     {
     }
 }

@@ -8,6 +8,10 @@ namespace SpaceINvaders
     {   
         public Bala(int xi, int yi, ConsoleColor color) : base(xi, yi, color)
         {
+            Forma = new string[] {
+                "^",
+                "|"
+            };
         }
 
     }
