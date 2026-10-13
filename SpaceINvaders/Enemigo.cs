@@ -4,7 +4,10 @@ using System.Text;
 
 namespace SpaceINvaders
 {
-    public class Enemigo
+    public class Enemigo:ObjetoMovil
     {
+        public Enemigo(int xi, int yi, ConsoleColor color) : base(xi, yi, color)
+        {
+        }
     }
 }

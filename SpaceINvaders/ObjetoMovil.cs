@@ -4,29 +4,27 @@ using System.Text;
 
 namespace SpaceINvaders
 {
-    public class ObjetoMovil
+    public class ObjetoMovil:ObjetoGrafico
     {
-        public Coordenada Posicion { get; set; }
-        protected string[] Forma { get; set; }
-        protected ConsoleColor Color { get; set; }
-        public ObjetoGrafico(int Xi, int Yi, ConsoleColor Color)
+        public ObjetoMovil(int Xi, int Yi, ConsoleColor Color) : base(Xi, Yi, Color)
         {
-            Posicion = new Coordenada(Xi, Yi);
-            Forma = new string[0];
-            this.Color = Color;
         }
-        public void Pintar()
+        public void Borrar()
         {
-            Console.ForegroundColor = Color;
+            Console.ForegroundColor = Console.BackgroundColor;
             _Pintar();
         }
-        protected void _Pintar()
+        public void Mover(Direccion direccion)
         {
-            for (int i = 0; i < Forma.Length; i++)
+            Borrar();
+            switch (direccion)
             {
-                Console.SetCursorPosition(Posicion.X, Posicion.Y + i);
-                Console.Write(Forma[i]);
+                case Direccion.Arriba: Posicion.Y--; break;
+                case Direccion.Abajo: Posicion.Y++; break;
+                case Direccion.Derecha: Posicion.X++; break;
+                case Direccion.Izquierda: Posicion.X--; break;
             }
+            Pintar();
         }
     }
 }

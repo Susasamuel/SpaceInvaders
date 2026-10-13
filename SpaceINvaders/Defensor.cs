@@ -4,7 +4,10 @@ using System.Text;
 
 namespace SpaceINvaders
 {
-    public class Defensor
+    public class Defensor:ObjetoGrafico
     {
+        public Defensor(int xi, int yi, ConsoleColor color) : base(xi, yi, color)
+        {
+        }
     }
 }
