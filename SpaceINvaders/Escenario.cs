@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SpaceINvaders
+{
+    public class Escenario:ObjetoGrafico
+    {
+        public Escenario(int Xi, int Yi, ConsoleColor Color) : base(Xi, Yi, Color)
+        {
+            Forma = new string[]
+            {
+            };
+        }
+    }
+}
