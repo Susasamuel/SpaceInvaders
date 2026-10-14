@@ -1718,23 +1718,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\santi\\.nuget\\packages\\": {},
+    "C:\\Users\\susas\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\santi\\source\\repos\\SpaceInvaders\\SpaceINvaders\\SpaceINvaders.csproj",
+      "projectUniqueName": "C:\\Users\\susas\\source\\repos\\SpaceINvaders\\SpaceINvaders\\SpaceINvaders.csproj",
       "projectName": "SpaceINvaders",
-      "projectPath": "C:\\Users\\santi\\source\\repos\\SpaceInvaders\\SpaceINvaders\\SpaceINvaders.csproj",
-      "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\santi\\source\\repos\\SpaceInvaders\\SpaceINvaders\\obj\\",
+      "projectPath": "C:\\Users\\susas\\source\\repos\\SpaceINvaders\\SpaceINvaders\\SpaceINvaders.csproj",
+      "packagesPath": "C:\\Users\\susas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\susas\\source\\repos\\SpaceINvaders\\SpaceINvaders\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\susas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
