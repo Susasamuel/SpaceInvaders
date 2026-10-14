@@ -10,7 +10,7 @@ namespace SpaceINvaders
         {
         }
         public int getAncho() { return Forma[0].Length; }
-        private int Velocidad = 1;
+        protected int Velocidad = 1;
         public void Borrar()
         {
             Console.ForegroundColor = Console.BackgroundColor;
@@ -18,9 +18,10 @@ namespace SpaceINvaders
         }
         public void Mover(Direccion direccion)
         {
-            Borrar();         
+                    
             if (direccion == Direccion.Derecha)
             {
+                Borrar();
                 if (Posicion.X + getAncho() < Posicion.Xmax)
                 {
                     Posicion.X += Velocidad;
@@ -32,6 +33,7 @@ namespace SpaceINvaders
             }
             else if (direccion == Direccion.Izquierda)
             {
+                Borrar();
                 if (Posicion.X > Posicion.Xmin)
                 {
                     Posicion.X -= Velocidad;

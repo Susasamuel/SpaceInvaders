@@ -13,6 +13,12 @@ namespace SpaceINvaders
                 "|"
             };
         }
+        public void AsignarPosicion(int Xn, int Yn)
+        {
+            
+            this.Posicion.X = Xn;
+            this.Posicion.Y = Yn;
+        }
 
     }
 }

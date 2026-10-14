@@ -6,7 +6,7 @@ namespace SpaceINvaders
 {
     public class ObjetoGrafico
     {
-        protected Coordenada Posicion { get; set; }
+        public Coordenada Posicion { get; set; }
         protected string[] Forma { get; set; }
         protected ConsoleColor Color { get; set; }
         protected Direccion direccion {  get; set; }

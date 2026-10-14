@@ -6,15 +6,38 @@
         {
             Console.CursorVisible = false;
             Escenario EscenarioJuego = new Escenario (0, 0, ConsoleColor.White);
-            NaveFila1 nave1 = new NaveFila1(10,5);
-            NaveFila2 nave2 = new NaveFila2(10,9);
-            NaveFila3 nave3 = new NaveFila3(10,12);
+            NaveFila1[] NavesFila1 =
+            {
+                new NaveFila1(10, 5),
+                new NaveFila1(16, 5),
+                new NaveFila1(22, 5),
+                new NaveFila1(28, 5),
+                new NaveFila1(34, 5)
+            };
+            NaveFila2[] NavesFila2 =
+            {
+                new NaveFila2(10, 9),
+                new NaveFila2(16, 9),
+                new NaveFila2(22, 9),
+                new NaveFila2(28, 9),
+                new NaveFila2(34, 9)
+            };
+            NaveFila3[] NavesFila3 = 
+            {
+                new NaveFila3(10, 12),
+                new NaveFila3(16, 12),
+                new NaveFila3(22, 12),
+                new NaveFila3(28, 12),
+                new NaveFila3(34, 12)
+            };   
 
             Defensor[] Defensores =
             {
                 new Defensor(11, 22, ConsoleColor.DarkYellow),
                 new Defensor(102, 22, ConsoleColor.Magenta)
             };
+            
+           
 
             void PintarDefensores()
             {
@@ -23,17 +46,67 @@
                     Defensor.Pintar();
                 }
             }
+            Direccion direccionEnemigos = Direccion.Derecha;
+            void MovimientoEnemigos()
+            {
+                int bordeIzquierdo = NavesFila1[0].Posicion.X;
+                int bordeDerecho = NavesFila1[^1].Posicion.X;
 
-            EscenarioJuego.Pintar();    
-            nave1.Pintar();
-            nave2.Pintar();
-            nave3.Pintar();
+                bool tocaronBorde = false;
+
+                if (direccionEnemigos == Direccion.Derecha && bordeDerecho >= Defensores[0].Posicion.Xmax - 5)
+                {
+                    direccionEnemigos = Direccion.Izquierda;
+                    tocaronBorde = true;
+                }
+                else if (direccionEnemigos == Direccion.Izquierda && bordeIzquierdo <= Defensores[0].Posicion.Xmin + 5)
+                {
+                    direccionEnemigos = Direccion.Derecha;
+                    tocaronBorde = true;
+                }
+
+               
+                for (int i = 0; i < NavesFila1.Length; i++)
+                {
+                    if (tocaronBorde)
+                    {                        
+                        NavesFila1[i].Borrar();
+                        NavesFila1[i].Posicion.Y += 2; 
+
+                        NavesFila2[i].Borrar();
+                        NavesFila2[i].Posicion.Y += 2;
+
+                        NavesFila3[i].Borrar();
+                        NavesFila3[i].Posicion.Y += 2;
+                    }
+                    else
+                    {                        
+                        NavesFila1[i].Mover(direccionEnemigos);
+                        NavesFila2[i].Mover(direccionEnemigos);
+                        NavesFila3[i].Mover(direccionEnemigos);
+                    }
+                }
+                Thread.Sleep(50);
+            }
+
+            EscenarioJuego.Pintar();  
+            
+            for (int i = 0; i < NavesFila1.Length; i++)
+            {
+                NavesFila1[i].Pintar();
+                NavesFila2[i].Pintar();
+                NavesFila3[i].Pintar();
+            }
+
             PintarDefensores();
+            
             Console.ReadKey();
-
+            
             ConsoleKey op = ConsoleKey.None;
+
             do
             {
+
                 if (Console.KeyAvailable)
                 {
                     op = Console.ReadKey(true).Key;
@@ -51,6 +124,8 @@
                 if (op == ConsoleKey.W)
                 {
                     //DISPARA
+                    Defensores[0].Disparar();
+                    
                     Task.Run(() => Console.Beep(1200, 25)); 
                 }
 
@@ -65,8 +140,10 @@
                 if (op == ConsoleKey.UpArrow)
                 {
                     //DISPARA
+                    Defensores[1].Disparar();
                     Task.Run(() => Console.Beep(1200, 25));
                 }
+                MovimientoEnemigos();
             }
             while (op != ConsoleKey.Escape);
         }
