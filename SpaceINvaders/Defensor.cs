@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpaceINvaders
 {
-    public class Defensor:ObjetoGrafico
+    public class Defensor:ObjetoMovil
     {
         public Defensor(int xi, int yi, ConsoleColor color) : base(xi, yi, color)
         {
@@ -15,5 +15,9 @@ namespace SpaceINvaders
                 "~~  ~~"
             };
         }
+        void Disparar()
+        {
+
+        }        
     }
 }

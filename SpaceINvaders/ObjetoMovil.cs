@@ -9,6 +9,8 @@ namespace SpaceINvaders
         public ObjetoMovil(int Xi, int Yi, ConsoleColor Color) : base(Xi, Yi, Color)
         {
         }
+        public int getAncho() { return Forma[0].Length; }
+        private int Velocidad = 1;
         public void Borrar()
         {
             Console.ForegroundColor = Console.BackgroundColor;
@@ -16,15 +18,30 @@ namespace SpaceINvaders
         }
         public void Mover(Direccion direccion)
         {
-            Borrar();
-            switch (direccion)
+            Borrar();         
+            if (direccion == Direccion.Derecha)
             {
-                case Direccion.Arriba: Posicion.Y--; break;
-                case Direccion.Abajo: Posicion.Y++; break;
-                case Direccion.Derecha: Posicion.X++; break;
-                case Direccion.Izquierda: Posicion.X--; break;
+                if (Posicion.X + getAncho() < Posicion.Xmax)
+                {
+                    Posicion.X += Velocidad;
+                }
+                else
+                {
+                    //LED
+                }
             }
+            else if (direccion == Direccion.Izquierda)
+            {
+                if (Posicion.X > Posicion.Xmin)
+                {
+                    Posicion.X -= Velocidad;
+                }
+                else
+                {
+                    //LED
+                }
+            }                             
             Pintar();
-        }
+        }        
     }
 }

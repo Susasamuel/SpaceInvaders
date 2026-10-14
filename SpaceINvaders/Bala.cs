@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpaceINvaders
 {
-    public class Bala : ObjetoGrafico
+    public class Bala : ObjetoMovil
     {   
         public Bala(int xi, int yi, ConsoleColor color) : base(xi, yi, color)
         {

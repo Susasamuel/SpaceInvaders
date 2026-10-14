@@ -6,10 +6,10 @@ namespace SpaceINvaders
 {
     public class Coordenada
     {
-        public readonly int Xmin = 0;
-        public readonly int Ymin = 0;
-        public readonly int Xmax = 50;
-        public readonly int Ymax = 20;
+        public readonly int Xmin = 1;
+        public readonly int Ymin = 4;
+        public readonly int Xmax = 117;
+        public readonly int Ymax = 26;
 
         private int _X { get; set; }
         private int _Y { get; set; }
