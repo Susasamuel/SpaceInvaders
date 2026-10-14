@@ -10,6 +10,7 @@ namespace SpaceINvaders
         {
         }
         public int getAncho() { return Forma[0].Length; }
+        public int getAlto() { return Forma.Length; }
         protected int Velocidad = 1;
         public void Borrar()
         {

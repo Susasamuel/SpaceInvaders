@@ -5,7 +5,8 @@ using System.Text;
 namespace SpaceINvaders
 {
     public class Bala : ObjetoMovil
-    {   
+    {
+        public bool Activa { get; set; } = false;
         public Bala(int xi, int yi, ConsoleColor color) : base(xi, yi, color)
         {
             Forma = new string[] {
