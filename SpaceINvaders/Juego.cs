@@ -12,6 +12,7 @@ public class Juego
     private NaveFila3[] NavesFila3;
     private Defensor[] Defensores;
     private Direccion direccionEnemigos;   
+    private int Puntaje = 0;
     public Juego()
     {
         EscenarioJuego = new Escenario(0, 0, ConsoleColor.White);
@@ -98,6 +99,9 @@ public class Juego
         ConsoleKey op = ConsoleKey.None;  
         do
         {
+            Console.SetCursorPosition(55, 4);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Puntaje: {0}", Puntaje);
             if (Console.KeyAvailable)
             {
                 op = Console.ReadKey(true).Key;
@@ -312,7 +316,8 @@ public class Juego
                                 NavesFila1[i].Borrar(); 
                                 NavesFila1[i] = null;   
                                 bala.Activa = false;    
-                                bala.Borrar();         
+                                bala.Borrar();
+                                Puntaje= Puntaje +3;
                                 Task.Run(() => Console.Beep(800, 20)); 
                             }
                         }
@@ -329,6 +334,7 @@ public class Juego
                                 NavesFila2[i] = null;
                                 bala.Activa = false;
                                 bala.Borrar();
+                                Puntaje = Puntaje + 2;
                                 Task.Run(() => Console.Beep(800, 20));
                             }
                         }
@@ -345,6 +351,7 @@ public class Juego
                                 NavesFila3[i] = null;
                                 bala.Activa = false;
                                 bala.Borrar();
+                                Puntaje = Puntaje + 1;
                                 Task.Run(() => Console.Beep(800, 20));
                             }
                         }
