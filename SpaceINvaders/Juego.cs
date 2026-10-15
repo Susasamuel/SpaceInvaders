@@ -126,12 +126,93 @@ public class Juego
         if (Ganar())
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("¡FELICIDADES, DESTRUISTE TODAS LAS NAVES!");
+            Console.WriteLine(@"
+             ██╗   ██╗██╗ ██████╗████████╗██████╗ ██████╗ ██╗ █████╗ 
+             ██║   ██║██║██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██║██╔══██╗
+             ██║   ██║██║██║        ██║   ██║  ██║██████╔╝██║███████║
+             ██║   ██║██║██║        ██║   ██║  ██║██╔══██╗██║██╔══██║
+             ╚██████╔╝██║╚██████╗   ██║   ██████╔╝██║  ██║██║██║  ██║
+              ╚═════╝ ╚═╝ ╚═════╝   ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝
+            ");
+            
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("=========================================================================================");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("               ¡FELICIDADES, DESTRUISTE TODAS LAS NAVES!              ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("=========================================================================================");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("   Has salvado el planeta de la invasión alienígena.");
+            Console.WriteLine("  ¡Los defensores han protegido la Tierra con éxito!");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n-----------------------------------------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("                    Presiona cualquier tecla para salir...");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("-----------------------------------------------------------------------------------------");
+
+            Console.ResetColor();
+          
+            Task.Run(() =>
+            {
+                Console.Beep(523, 150); 
+                Console.Beep(659, 150); 
+                Console.Beep(784, 150); 
+                Console.Beep(1046, 400); 
+            });
         }
         else if (Perder())
-        {
+        {            
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("¡GAME OVER! LAS NAVES LLEGARON A LA TIERRA.");
+            Console.WriteLine(@"
+              ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
+             ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
+             ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
+             ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║██║   ██║██╔══╝  ██╔══██╗
+             ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝╚██████╔╝███████╗██║  ██║
+              ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
+            ");
+           
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("=========================================================================================");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("                ¡GAME OVER! LAS NAVES LLEGARON A LA TIERRA.              ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("=========================================================================================");
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("  La invasión alienígena rompió tus líneas de defensa.");
+            Console.WriteLine("  La Tierra ha sido conquistada...");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n-----------------------------------------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("                    Presiona cualquier tecla para salir...");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-----------------------------------------------------------------------------------------");
+
+            Task.Run(() =>
+            {
+               
+                Console.Beep(494, 200); 
+                Console.Beep(466, 200);
+                Console.Beep(440, 200); 
+                Console.Beep(415, 200); 
+
+                Thread.Sleep(80);
+                        
+                Console.Beep(330, 300); 
+                Console.Beep(311, 300); 
+                Console.Beep(293, 400); 
+
+                Thread.Sleep(100);
+              
+                Console.Beep(220, 350); 
+                Console.Beep(207, 350);
+                Console.Beep(196, 700); 
+            });
         }
         Console.ReadKey();
     }
