@@ -155,12 +155,24 @@ public class Juego
             Console.WriteLine("   Has salvado el planeta de la invasión alienígena.");
             Console.WriteLine("  ¡Los defensores han protegido la Tierra con éxito!");
 
+            if (PuntajeJ1 > PuntajeJ2)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow; 
+                Console.WriteLine($"      ¡JUGADOR 1 ES EL JUGADOR CON MAS PUNTAJE! ({PuntajeJ1} vs {PuntajeJ2} puntos)");
+            }
+            else if (PuntajeJ2 > PuntajeJ1)
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta; 
+                Console.WriteLine($"      ¡JUGADOR 2 ES EL JUGADOR CON MAS PUNTAJE! ({PuntajeJ2} vs {PuntajeJ1} puntos)");
+            }
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n-----------------------------------------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("                    Presiona cualquier tecla para salir...");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-----------------------------------------------------------------------------------------");
+
 
             Console.ResetColor();
           
