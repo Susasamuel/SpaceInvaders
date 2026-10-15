@@ -118,9 +118,22 @@ public class Juego
             if (op == ConsoleKey.UpArrow) { Defensores[1].Disparar(); Task.Run(() => Console.Beep(1200, 25));}
 
             MoverBalas();
+            VerificarColisiones();
             MovimientoEnemigos(); 
             
-        } while (op != ConsoleKey.Escape);
+        } while (op != ConsoleKey.Escape && !Perder() && !Ganar());
+        Console.Clear();
+        if (Ganar())
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("¡FELICIDADES, DESTRUISTE TODAS LAS NAVES!");
+        }
+        else if (Perder())
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("¡GAME OVER! LAS NAVES LLEGARON A LA TIERRA.");
+        }
+        Console.ReadKey();
     }
     
     private void PintarDefensores()
@@ -133,8 +146,30 @@ public class Juego
 
     private void MovimientoEnemigos()
     {
-        int bordeIzquierdo = NavesFila1[0].Posicion.X;
-        int bordeDerecho = NavesFila1[^1].Posicion.X;
+        int bordeIzquierdo = 999;
+        int bordeDerecho = 0;
+
+        for (int i = 0; i < NavesFila1.Length; i++)
+        {
+            if (NavesFila1[i] != null)
+            {
+                bordeIzquierdo = Math.Min(bordeIzquierdo, NavesFila1[i].Posicion.X);
+                bordeDerecho = Math.Max(bordeDerecho, NavesFila1[i].Posicion.X);
+            }
+            if (NavesFila2[i] != null)
+            {
+                bordeIzquierdo = Math.Min(bordeIzquierdo, NavesFila2[i].Posicion.X);
+                bordeDerecho = Math.Max(bordeDerecho, NavesFila2[i].Posicion.X);
+            }
+            if (NavesFila3[i] != null)
+            {
+                bordeIzquierdo = Math.Min(bordeIzquierdo, NavesFila3[i].Posicion.X);
+                bordeDerecho = Math.Max(bordeDerecho, NavesFila3[i].Posicion.X);
+            }
+        }
+
+        if (bordeIzquierdo == 999) return;
+
         bool tocaronBorde = false;
 
         if (direccionEnemigos == Direccion.Derecha && bordeDerecho >= Defensores[0].Posicion.Xmax - 5)
@@ -152,26 +187,141 @@ public class Juego
         {
             if (tocaronBorde)
             {
-                NavesFila1[i].Borrar(); NavesFila1[i].Posicion.Y += 2;
-                NavesFila2[i].Borrar(); NavesFila2[i].Posicion.Y += 2;
-                NavesFila3[i].Borrar(); NavesFila3[i].Posicion.Y += 2;
+                if (NavesFila1[i] != null) { NavesFila1[i].Borrar(); NavesFila1[i].Posicion.Y += 2; }
+                if (NavesFila2[i] != null) { NavesFila2[i].Borrar(); NavesFila2[i].Posicion.Y += 2; }
+                if (NavesFila3[i] != null) { NavesFila3[i].Borrar(); NavesFila3[i].Posicion.Y += 2; }
             }
             else
             {
-                NavesFila1[i].Mover(direccionEnemigos);
-                NavesFila2[i].Mover(direccionEnemigos);
-                NavesFila3[i].Mover(direccionEnemigos);
+                if (NavesFila1[i] != null) NavesFila1[i].Mover(direccionEnemigos);
+                if (NavesFila2[i] != null) NavesFila2[i].Mover(direccionEnemigos);
+                if (NavesFila3[i] != null) NavesFila3[i].Mover(direccionEnemigos);
             }
         }
-        Thread.Sleep(30);        
+
+        Thread.Sleep(30);
 
         for (int i = 0; i < NavesFila1.Length; i++)
         {
-            NavesFila1[i].Pintar();
-            NavesFila2[i].Pintar();
-            NavesFila3[i].Pintar();
+            if (NavesFila1[i] != null) NavesFila1[i].Pintar();
+            if (NavesFila2[i] != null) NavesFila2[i].Pintar();
+            if (NavesFila3[i] != null) NavesFila3[i].Pintar();
         }
 
-        PintarDefensores();        
+        PintarDefensores();
     }
+
+    private void VerificarColisiones()
+    {
+        foreach (var def in Defensores)
+        {
+            if (def == null || def.balas == null) continue;
+            foreach (var bala in def.balas)
+            {
+                if (bala != null && bala.Activa)
+                {  
+                    for (int i = 0; i < NavesFila1.Length; i++)
+                    {
+                        if (NavesFila1[i] != null)
+                        {
+                            if (bala.Posicion.Y == NavesFila1[i].Posicion.Y &&
+                                bala.Posicion.X >= NavesFila1[i].Posicion.X &&
+                                bala.Posicion.X <= NavesFila1[i].Posicion.X + 4)
+                            {
+                                NavesFila1[i].Borrar(); 
+                                NavesFila1[i] = null;   
+                                bala.Activa = false;    
+                                bala.Borrar();         
+                                Task.Run(() => Console.Beep(800, 20)); 
+                            }
+                        }
+                    }
+                    for (int i = 0; i < NavesFila2.Length; i++)
+                    {
+                        if (NavesFila2[i] != null)
+                        {
+                            if (bala.Posicion.Y == NavesFila2[i].Posicion.Y &&
+                                bala.Posicion.X >= NavesFila2[i].Posicion.X &&
+                                bala.Posicion.X <= NavesFila2[i].Posicion.X + 4)
+                            {
+                                NavesFila2[i].Borrar();
+                                NavesFila2[i] = null;
+                                bala.Activa = false;
+                                bala.Borrar();
+                                Task.Run(() => Console.Beep(800, 20));
+                            }
+                        }
+                    }
+                    for (int i = 0; i < NavesFila3.Length; i++)
+                    {
+                        if (NavesFila3[i] != null)
+                        {
+                            if (bala.Posicion.Y == NavesFila3[i].Posicion.Y &&
+                                bala.Posicion.X >= NavesFila3[i].Posicion.X &&
+                                bala.Posicion.X <= NavesFila3[i].Posicion.X + 4)
+                            {
+                                NavesFila3[i].Borrar();
+                                NavesFila3[i] = null;
+                                bala.Activa = false;
+                                bala.Borrar();
+                                Task.Run(() => Console.Beep(800, 20));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private bool Perder()
+    {
+        foreach (var nave in NavesFila1)
+        {
+            if (nave != null && nave.Posicion.Y >= Defensores[0].Posicion.Y)
+            {
+                return true;
+            }
+        }
+        foreach (var nave in NavesFila2)
+        {
+            if (nave != null && nave.Posicion.Y >= Defensores[0].Posicion.Y)
+            {
+                return true;
+            }
+        }
+        foreach (var nave in NavesFila3)
+        {
+            if (nave != null && nave.Posicion.Y >= Defensores[0].Posicion.Y)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool Ganar()
+    {
+        foreach (var nave in NavesFila1)
+        {
+            if (nave != null)
+            {
+                return false; 
+            }
+        }
+        foreach (var nave in NavesFila2)
+        {
+            if (nave != null)
+            {
+                return false;
+            }
+        }
+        foreach (var nave in NavesFila3)
+        {
+            if (nave != null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
