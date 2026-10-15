@@ -11,8 +11,9 @@ public class Juego
     private NaveFila2[] NavesFila2;
     private NaveFila3[] NavesFila3;
     private Defensor[] Defensores;
-    private Direccion direccionEnemigos;   
-    private int Puntaje = 0;
+    private Direccion direccionEnemigos;
+    private int PuntajeJ1 = 0;
+    private int PuntajeJ2 = 0;
     public Juego()
     {
         EscenarioJuego = new Escenario(0, 0, ConsoleColor.White);
@@ -99,9 +100,13 @@ public class Juego
         ConsoleKey op = ConsoleKey.None;  
         do
         {
-            Console.SetCursorPosition(55, 4);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Puntaje: {0}", Puntaje);
+            Console.SetCursorPosition(20, 4);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write("Puntaje J1: {0}  ", PuntajeJ1);
+
+            Console.SetCursorPosition(80, 4);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("Puntaje J2: {0}  ", PuntajeJ2);
             if (Console.KeyAvailable)
             {
                 op = Console.ReadKey(true).Key;
@@ -298,8 +303,9 @@ public class Juego
 
     private void VerificarColisiones()
     {
-        foreach (var def in Defensores)
+        for (int d = 0; d < Defensores.Length; d++)
         {
+            var def = Defensores[d];
             if (def == null || def.balas == null) continue;
             foreach (var bala in def.balas)
             {
@@ -317,7 +323,7 @@ public class Juego
                                 NavesFila1[i] = null;   
                                 bala.Activa = false;    
                                 bala.Borrar();
-                                Puntaje= Puntaje +3;
+                                if (d == 0) PuntajeJ1 += 3; else PuntajeJ2 += 3;
                                 Task.Run(() => Console.Beep(800, 20)); 
                             }
                         }
@@ -334,7 +340,7 @@ public class Juego
                                 NavesFila2[i] = null;
                                 bala.Activa = false;
                                 bala.Borrar();
-                                Puntaje = Puntaje + 2;
+                                if (d == 0) PuntajeJ1 += 2; else PuntajeJ2 += 2;
                                 Task.Run(() => Console.Beep(800, 20));
                             }
                         }
@@ -351,7 +357,7 @@ public class Juego
                                 NavesFila3[i] = null;
                                 bala.Activa = false;
                                 bala.Borrar();
-                                Puntaje = Puntaje + 1;
+                                if (d == 0) PuntajeJ1 += 1; else PuntajeJ2 += 1;
                                 Task.Run(() => Console.Beep(800, 20));
                             }
                         }
