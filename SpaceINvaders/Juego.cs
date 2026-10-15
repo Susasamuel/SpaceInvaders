@@ -11,9 +11,28 @@ public class Juego
     private NaveFila2[] NavesFila2;
     private NaveFila3[] NavesFila3;
     private Defensor[] Defensores;
+    ESP esp = new ESP("COM&");
     private Direccion direccionEnemigos;
     private int PuntajeJ1 = 0;
     private int PuntajeJ2 = 0;
+
+    byte LED_AMARILLO_DEF2 = 0x04;
+    byte LED_VERDE_DEF2 = 0x02;
+    byte LED_ROJO_DEF2 = 0x01;
+
+    byte LED_AMARILLO_DEF1 = 0x80;
+    byte LED_VERDE_DEF1 = 0x40;
+    byte LED_ROJO_DEF1 = 0x20;
+
+    byte BTN_ARRIBA_DEF2 = 0x04;
+    byte BTN_ABAJO_DEF2 = 0x02;
+    byte BTN_DISPARO_DEF2 = 0x01;
+
+    byte BTN_ARRIBA_DEF1 = 0x80;
+    byte BTN_ABAJO_DEF1 = 0x40;
+    byte BTN_DISPARO_DEF1 = 0x20;
+
+    byte BTN_SALIR = 0x08;
     public Juego()
     {
         EscenarioJuego = new Escenario(0, 0, ConsoleColor.White);
@@ -120,11 +139,11 @@ public class Juego
 
             if (op == ConsoleKey.A) { Defensores[0].Mover(Direccion.Izquierda); }
             if (op == ConsoleKey.D) { Defensores[0].Mover(Direccion.Derecha); }
-            if (op == ConsoleKey.W) { Defensores[0].Disparar(); Task.Run(() => Console.Beep(1200, 25));}
+            if (op == ConsoleKey.W) { Defensores[0].Disparar(esp, LED_ROJO_DEF1); Task.Run(() => Console.Beep(1200, 25));}
 
             if (op == ConsoleKey.LeftArrow) { Defensores[1].Mover(Direccion.Izquierda); }
             if (op == ConsoleKey.RightArrow) { Defensores[1].Mover(Direccion.Derecha); }
-            if (op == ConsoleKey.UpArrow) { Defensores[1].Disparar(); Task.Run(() => Console.Beep(1200, 25));}
+            if (op == ConsoleKey.UpArrow) { Defensores[1].Disparar(esp, LED_ROJO_DEF2); Task.Run(() => Console.Beep(1200, 25));}
 
             MoverBalas();
             VerificarColisiones();
@@ -157,12 +176,12 @@ public class Juego
 
             if (PuntajeJ1 > PuntajeJ2)
             {
-                Console.ForegroundColor = ConsoleColor.DarkYellow; 
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine($"      ¡JUGADOR 1 ES EL JUGADOR CON MAS PUNTAJE! ({PuntajeJ1} vs {PuntajeJ2} puntos)");
             }
             else if (PuntajeJ2 > PuntajeJ1)
             {
-                Console.ForegroundColor = ConsoleColor.Magenta; 
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine($"      ¡JUGADOR 2 ES EL JUGADOR CON MAS PUNTAJE! ({PuntajeJ2} vs {PuntajeJ1} puntos)");
             }
 

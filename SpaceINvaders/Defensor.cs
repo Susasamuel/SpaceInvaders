@@ -19,14 +19,13 @@ namespace SpaceINvaders
             balas = new Bala[1];            
             balas[0] = new Bala(xi, yi, ConsoleColor.Yellow);
         }
-        public void Disparar()
+        public void Disparar(ESP esp, byte bitLedRojo)
         {
             if (balas != null && balas.Length > 0)
             {
                 if (balas[0].Activa)
                 {
-                    //esp.leds &= (byte)~bitLedVerde;
-                    //esp.leds |= bitLedRojo;
+                    esp.leds |= bitLedRojo;
                 }
 
                 else
@@ -35,8 +34,7 @@ namespace SpaceINvaders
                     balas[0].Posicion.Y = Posicion.Y - 1;
                     balas[0].Activa = true;
                     balas[0].Pintar();
-                    //esp.leds &= (byte)~bitLedRojo;
-                    //esp.leds |= bitLedVerde;
+                    esp.leds &= (byte)~bitLedRojo;                    
                 }
             }
         }        
