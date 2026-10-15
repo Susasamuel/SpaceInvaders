@@ -17,7 +17,7 @@ namespace SpaceINvaders
             Console.ForegroundColor = Console.BackgroundColor;
             _Pintar();
         }
-        public void Mover(Direccion direccion)
+        public void Mover(Direccion direccion, ESP esp, byte bitLedVerde, byte bitLedAmarillo)
         {
                     
             if (direccion == Direccion.Derecha)
@@ -26,11 +26,9 @@ namespace SpaceINvaders
                 if (Posicion.X + getAncho() < Posicion.Xmax)
                 {
                     Posicion.X += Velocidad;
-                }
-                else
-                {
-                    //LED
-                }
+                    esp.leds &= (byte)~bitLedVerde;
+                    esp.leds |= bitLedAmarillo;
+                }                
             }
             else if (direccion == Direccion.Izquierda)
             {
@@ -38,11 +36,9 @@ namespace SpaceINvaders
                 if (Posicion.X > Posicion.Xmin)
                 {
                     Posicion.X -= Velocidad;
-                }
-                else
-                {
-                    //LED
-                }
+                    esp.leds &= (byte)~bitLedAmarillo;
+                    esp.leds |= bitLedVerde;
+                }               
             }                             
             Pintar();
         }        

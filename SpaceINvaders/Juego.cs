@@ -11,7 +11,7 @@ public class Juego
     private NaveFila2[] NavesFila2;
     private NaveFila3[] NavesFila3;
     private Defensor[] Defensores;
-    ESP esp = new ESP("COM&");
+    private ESP esp;   
     private Direccion direccionEnemigos;
     private int PuntajeJ1 = 0;
     private int PuntajeJ2 = 0;
@@ -24,17 +24,20 @@ public class Juego
     byte LED_VERDE_DEF1 = 0x40;
     byte LED_ROJO_DEF1 = 0x20;
 
-    byte BTN_ARRIBA_DEF2 = 0x04;
-    byte BTN_ABAJO_DEF2 = 0x02;
+    byte BTN_IZQUIERDA_DEF2 = 0x04;
+    byte BTN_DERECHA_DEF2 = 0x02;
     byte BTN_DISPARO_DEF2 = 0x01;
 
-    byte BTN_ARRIBA_DEF1 = 0x80;
-    byte BTN_ABAJO_DEF1 = 0x40;
-    byte BTN_DISPARO_DEF1 = 0x20;
-
+    byte BTN_IZQUIERDA_DEF1 = 0x80;
+    byte BTN_DERECHA_DEF1 = 0x40;
+    byte BTN_DISPARO_DEF1 = 0x20;   
+    byte LED_NULL = 0x10;
     byte BTN_SALIR = 0x08;
     public Juego()
     {
+
+        esp = new ESP("COM4");
+
         EscenarioJuego = new Escenario(0, 0, ConsoleColor.White);
 
         NavesFila1 = new NaveFila1[] {
@@ -116,7 +119,7 @@ public class Juego
         EscenarioJuego.Pintar();
         PintarDefensores();
 
-        ConsoleKey op = ConsoleKey.None;  
+        byte entradas = 0;
         do
         {
             Console.SetCursorPosition(20, 4);
@@ -126,30 +129,24 @@ public class Juego
             Console.SetCursorPosition(80, 4);
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Puntaje J2: {0}  ", PuntajeJ2);
-            if (Console.KeyAvailable)
-            {
-                op = Console.ReadKey(true).Key;
-            }
-            else
-            {
-                op = ConsoleKey.None;
-            }
 
-            if (op == ConsoleKey.E) {}
+            entradas = esp.Switches;            
 
-            if (op == ConsoleKey.A) { Defensores[0].Mover(Direccion.Izquierda); }
-            if (op == ConsoleKey.D) { Defensores[0].Mover(Direccion.Derecha); }
-            if (op == ConsoleKey.W) { Defensores[0].Disparar(esp, LED_ROJO_DEF1); Task.Run(() => Console.Beep(1200, 25));}
 
-            if (op == ConsoleKey.LeftArrow) { Defensores[1].Mover(Direccion.Izquierda); }
-            if (op == ConsoleKey.RightArrow) { Defensores[1].Mover(Direccion.Derecha); }
-            if (op == ConsoleKey.UpArrow) { Defensores[1].Disparar(esp, LED_ROJO_DEF2); Task.Run(() => Console.Beep(1200, 25));}
+            if ((entradas & BTN_IZQUIERDA_DEF1) == 0) { Defensores[0].Mover(Direccion.Izquierda, esp, LED_VERDE_DEF1, LED_AMARILLO_DEF1); }
+            if ((entradas & BTN_DERECHA_DEF1) == 0) { Defensores[0].Mover(Direccion.Derecha, esp, LED_VERDE_DEF1, LED_AMARILLO_DEF1); }
+            if ((entradas & BTN_DISPARO_DEF1) == 0) { Defensores[0].Disparar(esp, LED_ROJO_DEF1); Task.Run(() => Console.Beep(1200, 25));}
+
+            if ((entradas & BTN_IZQUIERDA_DEF2) == 0) { Defensores[1].Mover(Direccion.Izquierda, esp, LED_VERDE_DEF2, LED_AMARILLO_DEF2); }
+            if ((entradas & BTN_DERECHA_DEF1) == 0) { Defensores[1].Mover(Direccion.Derecha, esp, LED_VERDE_DEF2, LED_AMARILLO_DEF2); }
+            if ((entradas & BTN_DISPARO_DEF1) == 0) { Defensores[1].Disparar(esp, LED_ROJO_DEF2); Task.Run(() => Console.Beep(1200, 25));}
 
             MoverBalas();
             VerificarColisiones();
             MovimientoEnemigos(); 
             
-        } while (op != ConsoleKey.Escape && !Perder() && !Ganar());
+        } while ((entradas & BTN_SALIR) != 0 && !Perder() && !Ganar());
+
         Console.Clear();
         if (Ganar())
         {
@@ -314,9 +311,9 @@ public class Juego
             }
             else
             {
-                if (NavesFila1[i] != null) NavesFila1[i].Mover(direccionEnemigos);
-                if (NavesFila2[i] != null) NavesFila2[i].Mover(direccionEnemigos);
-                if (NavesFila3[i] != null) NavesFila3[i].Mover(direccionEnemigos);
+                if (NavesFila1[i] != null) NavesFila1[i].Mover(direccionEnemigos, esp, LED_NULL, LED_NULL);
+                if (NavesFila2[i] != null) NavesFila2[i].Mover(direccionEnemigos, esp, LED_NULL, LED_NULL);
+                if (NavesFila3[i] != null) NavesFila3[i].Mover(direccionEnemigos, esp, LED_NULL, LED_NULL);
             }
         }
 
